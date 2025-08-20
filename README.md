@@ -13,7 +13,7 @@ AS
 BEGIN
     DECLARE @SQL NVARCHAR(MAX)
     
-    SET @SQL = '
+   SET @SQL = '
         SELECT 
             p.id,
             p.last_name + '' '' + LEFT(p.first_name, 1) + ''. '' + LEFT(p.second_name, 1) + ''.'' as FullName,
@@ -28,21 +28,21 @@ BEGIN
         INNER JOIN posts po ON p.id_post = po.id
         WHERE 1=1'
     
-    IF @StatusFilter IS NOT NULL
+   IF @StatusFilter IS NOT NULL
         SET @SQL = @SQL + ' AND p.status = ' + CAST(@StatusFilter AS VARCHAR(10))
     
-    IF @DepartmentFilter IS NOT NULL
+   IF @DepartmentFilter IS NOT NULL
         SET @SQL = @SQL + ' AND p.id_dep = ' + CAST(@DepartmentFilter AS VARCHAR(10))
     
-    IF @PostFilter IS NOT NULL
+   IF @PostFilter IS NOT NULL
         SET @SQL = @SQL + ' AND p.id_post = ' + CAST(@PostFilter AS VARCHAR(10))
     
-    IF @LastNameFilter IS NOT NULL
+   IF @LastNameFilter IS NOT NULL
         SET @SQL = @SQL + ' AND p.last_name LIKE ''%' + @LastNameFilter + '%'''
     
-    SET @SQL = @SQL + ' ORDER BY ' + @SortField + ' ' + @SortOrder
+   SET @SQL = @SQL + ' ORDER BY ' + @SortField + ' ' + @SortOrder
     
-    EXEC sp_executesql @SQL
+   EXEC sp_executesql @SQL
 END
 GO
 
